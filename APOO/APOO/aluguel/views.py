@@ -1,6 +1,10 @@
 from django.shortcuts import redirect, render
 from .models import *
 
+#Página inicial com a lista de clientes
+def index(request):
+    return render(request, 'index.html')
+
 class ItemViews:
     #Recupera a lista de itens cadastrados
     def listItem(request):

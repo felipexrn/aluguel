@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ["https://felipexrn-cuddly-waffle-6qp4gq5gv9vhrrrw-8000.preview.
 # Application definition
 
 INSTALLED_APPS = [
+    "aluguel.apps.AluguelConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

@@ -2,6 +2,10 @@ from django.urls import path
 
 from .views import index, ItemViews
 
+app_name = 'aluguel'
+
+urlpatterns= [
+
 #URLs para página principal
     path('', index),
 
@@ -12,3 +16,5 @@ from .views import index, ItemViews
     path('deleteItem/<int:id>', ItemViews.deleteItem),
     path('detailItem/<int:id>', ItemViews.detailItem),
     path('updateItem/<int:id>', ItemViews.updateItem),
+
+]
