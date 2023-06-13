@@ -25,7 +25,11 @@ SECRET_KEY = "django-insecure-gdzvo(t1_e8yq6&7#lsu8nlsvv*j%v-xv^g(&k)6*ts51mnuda
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://felipexrn-cuddly-waffle-6qp4gq5gv9vhrrrw-8000.preview.app.github.dev/","localhost",]
+ALLOWED_HOSTS = [
+    "https://felipexrn-cuddly-waffle-6qp4gq5gv9vhrrrw-8000.preview.app.github.dev/",
+    "localhost",
+    "https://felipexrn-cuddly-waffle-6qp4gq5gv9vhrrrw-8000.preview.app.github.dev/admin/login/?next=/admin/]",
+]
 
 
 # Application definition
