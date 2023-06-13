@@ -9,8 +9,8 @@ class ItemViews:
         return render(request, 'item/listItem.html', context)
     
     #Redirecionador para o formulário de cadastro de item
-    def formItem(request):
-        return render(request, 'item/formItem.html')
+    #def formItem(request):
+    #    return render(request, 'item/formItem.html')
 
     #Salva o novo item e volta para listagem de itens
     def saveItem(request):
