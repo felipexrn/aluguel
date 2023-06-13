@@ -1,9 +1,12 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 from .models import *
 
 #Página inicial com a lista de clientes
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'aluguel/index.html')
 
 class ItemViews:
     #Recupera a lista de itens cadastrados
