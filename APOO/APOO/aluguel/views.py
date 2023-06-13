@@ -7,7 +7,7 @@ class ItemViews:
         item_list = Item.objects.all()
         context = {'item_list': item_list}
         return render(request, 'item/listItem.html', context)
-
+    """
     #Redirecionador para o formulário de cadastro de item
     def formItem(request):
         return render(request, 'item/formItem.html')
@@ -37,4 +37,4 @@ class ItemViews:
         i.description = request.POST['description']
         i.save()
         return redirect('/listItem')
-
+"""
