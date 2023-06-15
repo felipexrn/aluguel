@@ -30,6 +30,10 @@ ALLOWED_HOSTS = [
     "localhost",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://felipexrn-cuddly-waffle-6qp4gq5gv9vhrrrw-8000.preview.app.github.dev",
+]
+
 
 # Application definition
 
