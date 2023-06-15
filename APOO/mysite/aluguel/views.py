@@ -23,24 +23,28 @@ class ItemViews:
 
     #Salva o novo item e volta para listagem de itens
     def saveItem(request):
+        n=request.POST['name'] 
+        d=request.POST['description']
         i = ItemDao()
-        i.save(request)
+        i.save(n, d)
         return redirect('/listItem')
 
     #Deleta um item e volta para listagem de itens
     def deleteItem(request, id):
         i = ItemDao()
-        i.delete(request, id)
+        i.delete(id)
         return redirect('/listItem')
     
     #Pega um item pelo ID e enviar para o form de edição
     def detailItem(request, id):
         i = ItemDao()
-        item = i.detail(request, id)
+        item = i.detail(id)
         return render(request, 'aluguel/formEditItem.html', {'item': item} )
 
     #Atualiza um item e volta para listagem
     def updateItem(request, id):
         i = ItemDao()
-        i.update(request, id)
+        n = request.POST['name']
+        d = request.POST['description']
+        i.update(n, d, id)
         return redirect('/listItem')

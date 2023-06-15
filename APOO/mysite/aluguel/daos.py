@@ -4,21 +4,20 @@ class ItemDao:
     def list_all(self):
         return Item.objects.all()
 
-    def save(self, request):
-        i = Item(name=request.POST['name'], 
-                 description=request.POST['description'])
+    def save(self, n, d):
+        i = Item(name = n, description = d)
         i.save()
 
-    def delete(self, request, id):
+    def delete(self, id):
         i = Item.objects.get(pk=id)
         i.delete()
 
-    def detail(self, request, id):
+    def detail(self, id):
         return Item.objects.get(pk=id)
 
-    def update(self, request, id):
+    def update(self, n, d, id):
         i = Item.objects.get(pk=id)
-        i.name = request.POST['name']
-        i.description = request.POST['description']
+        i.name = n 
+        i.description = d
         i.save()
         
