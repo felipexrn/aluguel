@@ -28,7 +28,6 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "https://felipexrn-cuddly-waffle-6qp4gq5gv9vhrrrw-8000.preview.app.github.dev/",
     "localhost",
-    "https://felipexrn-cuddly-waffle-6qp4gq5gv9vhrrrw-8000.preview.app.github.dev/admin/login/?next=/admin/]",
 ]
 
 
