@@ -1,0 +1,10 @@
+{% if item_list %}
+    <ul>
+    {% for item in item_list %}
+        <li><a href="{% url 'aluguel:formEditItem' item.id %}">
+            {{ item.description }}</a</li>
+    {% endfor %}
+    </ul>
+{%else %}
+    <p>Nenhum item cadastrado.</p>
+{% endif %}
