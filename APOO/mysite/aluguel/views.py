@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from .daos import ItemDao
 
 from .models import *
 
@@ -11,7 +12,8 @@ def index(request):
 class ItemViews:
     #Recupera a lista de itens cadastrados
     def listItem(request):
-        item_list = Item.objects.all()
+        i = ItemDao()
+        item_list = i.list_all
         context = {'item_list': item_list}
         return render(request, 'aluguel/listItem.html', context)
     
@@ -21,26 +23,24 @@ class ItemViews:
 
     #Salva o novo item e volta para listagem de itens
     def saveItem(request):
-        i = Item(name=request.POST['name'], 
-                 description=request.POST['description'])
-        i.save()
+        i = ItemDao()
+        i.save(request)
         return redirect('/listItem')
 
     #Deleta um item e volta para listagem de itens
     def deleteItem(request, id):
-        i = Item.objects.get(pk=id)
-        i.delete()
+        i = ItemDao()
+        i.delete(request, id)
         return redirect('/listItem')
     
     #Pega um item pelo ID e enviar para o form de edição
     def detailItem(request, id):
-        item = Item.objects.get(pk=id)
+        i = ItemDao()
+        item = i.detail(request, id)
         return render(request, 'aluguel/formEditItem.html', {'item': item} )
 
     #Atualiza um item e volta para listagem
     def updateItem(request, id):
-        i = Item.objects.get(pk=id)
-        i.name = request.POST['name']
-        i.description = request.POST['description']
-        i.save()
+        i = ItemDao()
+        i.update(request, id)
         return redirect('/listItem')
