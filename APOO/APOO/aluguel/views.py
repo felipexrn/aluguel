@@ -13,11 +13,11 @@ class ItemViews:
     def listItem(request):
         item_list = Item.objects.all()
         context = {'item_list': item_list}
-        return render(request, 'item/listItem.html', context)
+        return render(request, 'aluguel/listItem.html', context)
     
     #Redirecionador para o formulário de cadastro de item
-    #def formItem(request):
-    #    return render(request, 'item/formItem.html')
+    def formItem(request):
+        return render(request, 'aluguel/formItem.html')
 
     #Salva o novo item e volta para listagem de itens
     def saveItem(request):
@@ -35,7 +35,7 @@ class ItemViews:
     #Pega um item pelo ID e enviar para o form de edição
     def detailItem(request, id):
         item = Item.objects.get(pk=id)
-        return render(request, 'item/formEditItem.html', {'item': item} )
+        return render(request, 'aluguel/formEditItem.html', {'item': item} )
 
     #Atualiza um item e volta para listagem
     def updateItem(request, id):
