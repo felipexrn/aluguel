@@ -32,7 +32,7 @@
                     <select class="form-select" name="select_theme" id="">
                         {% for theme in theme_list %}
                             {% if theme%}            
-                                    <option value="{{theme.id}}">{{theme.name}}</option>
+                                <option value="{{theme.id}}">{{theme.name}} R$ {{theme.price | floatformat:2}}</option>
                             {% endif%}
                         {% endfor %}
                     </select>

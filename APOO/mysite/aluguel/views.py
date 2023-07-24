@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .daos import *
-
 from .models import *
+from .business import *
 
 #Página inicial com a lista de clientes
 def index(request):
@@ -188,77 +188,60 @@ class RentViews:
     
     #Redirecionador para o formulário de cadastro de aluguel
     def formRent(request):
-        #client_list = Client.objects.all()
-        #theme_list = Theme.objects.all()
         context = RentDao().formRent()
         #context = {'client_list':client_list, 'theme_list': theme_list}
         return render(request, 'rent/formRent.html', context)
     
     #Salva o novo aluguel e volta para listagem de alugueis
-    def saveRent(self, request):
+    def saveRent(request):
         
         #address
         street = request.POST['street']
-        number = request.POST['number'],
-        complement = request.POST['complement'], 
-        district = request.POST['district'],
-        city = request.POST['city'],
+        number = request.POST['number']
+        complement = request.POST['complement']
+        district = request.POST['district']
+        city = request.POST['city']
         state = request.POST['state']
-        a = AdressDao().new_address(self, street, number, complement, district, city, state)
-        
+        ad = AddressDao()
+        ad.newAddress(street, number, complement, district, city, state)
+        address = ad.getAddress
+
         #rent
-        date=request.POST['date'], 
-        start_hours=request.POST['start_hours'],
-        end_hours=request.POST['end_hours'],
-        price=request.POST['price'],
-        client_id= request.POST['select_client'],
-        theme_id = request.POST['select_theme'],
-        address = a 
-        r = RentDao().saveRent(self, date, start_hours, end_hours, price, client_id, theme_id, address)
+        date = request.POST['date']
+        start_hours = request.POST['start_hours']
+        end_hours = request.POST['end_hours']
+        client_id = request.POST['select_client']
+        theme_id = request.POST['select_theme']
+        price = RentBusiness().calc_desconto(date, client_id, theme_id)
+
+        RentDao().saveRent(date, start_hours, end_hours, price, client_id, theme_id, address)
 
         return redirect('/listRent')
 
     #Deleta um aluguel e volta para listagem de alugueis
     def deleteRent(request, id):
-        RentDao().deleteRent() #Rent.objects.get(pk=id)
+        RentDao().deleteRent(id)
         return redirect('/listRent')
     
     #Pega um aluguel pelo ID e enviar para o form de edição
     def detailRent(request, id):
-        rent = RentDao().getRent(id) #Rent.objects.get(pk=id)
+        rent = RentDao().getRent(id)
         return render(request, 'rent/formEditRent.html', {'rent': rent})
     
     #Atualiza um item e volta para listagem
     def updateRent(request, id):
-        r = RentDao().getRent(id) #Rent.objects.get(pk=id)
-        r.date = request.POST['date']
-        r.start_hours = request.POST['start_hours']
-        r.end_hours = request.POST['end_hours']
-        
-        addr = r.address
-        
-        if not addr:
-            addr = Address(street = request.POST['street'],
-                number = int(request.POST['number']),
-                complement = request.POST['complement'],
-                district = request.POST['district'],
-                city = request.POST['city'],
-                state = request.POST['state'])
-            
-            print('novo endereco')
-        else:
-            print(r.address)
-            addr.street = request.POST['street']
-            addr.number = int(request.POST['number'])
-            addr.complement = request.POST['complement']
-            addr.district = request.POST['district']
-            addr.city = request.POST['city']
-            addr.state = request.POST['state']
-            print('endereco atualizado')
-        addr.save()
-        r.address = addr
 
-        RentDao().updateRent(id, ...)
+        street = request.POST['street']
+        number = int(request.POST['number'])
+        complement = request.POST['complement']
+        district = request.POST['district']
+        city = request.POST['city']
+        state = request.POST['state']
+        address = AddressDao().updateAddress(id, street, number, complement, district, city, state)
 
-        r.save()
+        date = request.POST['date']
+        start_hours = request.POST['start_hours']
+        end_hours = request.POST['end_hours']
+        RentDao().updateRent(save, date, start_hours, end_hours, price, client_id, theme_id, address)
+
         return redirect('/listRent')
