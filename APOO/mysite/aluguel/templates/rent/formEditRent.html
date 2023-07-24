@@ -6,6 +6,12 @@
         <form action="/updateRent/{{rent.id}}" method="post">
             {% csrf_token %}
             <div class="row mb-3">
+                <label class="col-sm-1 col-form-label"  for="price">Preço</label>
+                <div class="col-sm-11">
+                    <input disabled id="price" size="20" type="text" name="price" value="{{rent.price | floatformat:2}}">
+                </div>
+            </div>
+            <div class="row mb-3">
                 <label class="col-sm-1 col-form-label" for="date">Data</label>
                 <div class="col-sm-11">
                     <input id="date" type="date" name="date" value="{{rent.date|date:'Y-m-d'}}">

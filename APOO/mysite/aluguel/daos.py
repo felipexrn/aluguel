@@ -87,7 +87,7 @@ class AddressDao:
     def getAddress(self, id):
         return Address.objects.get(pk=id)
 
-    def updateAddress(self, street, number, complement, district, city, state):
+    def updateAddress(self, id, street, number, complement, district, city, state):
         a = getAdrress(id)
         a.street = street,
         a.number = number,
