@@ -1,4 +1,10 @@
-from .models import Item 
+from .models import Client, Phone, Theme, Item, Rent, Adress 
+
+class ClientDao:
+
+class PhoneDao:
+
+class ThemeDao:
 
 class ItemDao:
     def list_all(self):
@@ -21,3 +27,6 @@ class ItemDao:
         i.description = d
         i.save()
         
+class RentDao:
+
+class AdressDao:

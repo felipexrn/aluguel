@@ -26,12 +26,12 @@ SECRET_KEY = "django-insecure-gdzvo(t1_e8yq6&7#lsu8nlsvv*j%v-xv^g(&k)6*ts51mnuda
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "https://felipexrn-cuddly-waffle-6qp4gq5gv9vhrrrw-8000.preview.app.github.dev/",
+    "https://felipexrn-bookish-space-lamp-45rw75wxx59c67x.github.dev/",
     "localhost",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://felipexrn-cuddly-waffle-6qp4gq5gv9vhrrrw-8000.preview.app.github.dev",
+    "https://felipexrn-bookish-space-lamp-45rw75wxx59c67x-8000.preview.app.github.dev",
 ]
 
 
