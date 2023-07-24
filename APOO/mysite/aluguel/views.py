@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .daos import ItemDao
+from .daos import *
 
 from .models import *
 
@@ -14,7 +14,7 @@ def index(request):
 class ClientViews:
     # Apresenta a lista de clientes no template listClient.html
     def listClient(request):
-        clients_list = Client.objects.all()
+        clients_list = ClientDao().list_all() #Client.objects.all()
         context = {'clients_list': clients_list}
         return render(request, 'client/listClient.html', context)
 
@@ -91,7 +91,7 @@ class ClientViews:
 class ThemeViews:
     #Recupera a lista de temas cadastrados
     def listTheme(request):
-        themes_list = Theme.objects.all()
+        themes_list = ThemeDao().list_all() #Theme.objects.all()
         context = {'theme_list': themes_list}
         return render(request, 'theme/listTheme.html', context)
 
@@ -143,11 +143,11 @@ class ItemViews:
         i = ItemDao()
         item_list = i.list_all
         context = {'item_list': item_list}
-        return render(request, 'rent/listItem.html', context)
+        return render(request, 'item/listItem.html', context)
     
     #Redirecionador para o formulário de cadastro de item
     def formItem(request):
-        return render(request, 'rent/formItem.html')
+        return render(request, 'item/formItem.html')
 
     #Salva o novo item e volta para listagem de itens
     def saveItem(request):
@@ -167,7 +167,7 @@ class ItemViews:
     def detailItem(request, id):
         i = ItemDao()
         item = i.detail(id)
-        return render(request, 'rent/formEditItem.html', {'item': item} )
+        return render(request, 'item/formEditItem.html', {'item': item} )
 
     #Atualiza um item e volta para listagem
     def updateItem(request, id):
@@ -182,7 +182,7 @@ class RentViews:
     
     #Recupera a lista de aluguéis cadastrados
     def listRent(request):
-        rent_list = Rent.objects.all()
+        rent_list = RentDao().list_all() #Rent.objects.all()
         context = {'rent_list': rent_list}
         return render(request, 'rent/listRent.html', context) 
     
