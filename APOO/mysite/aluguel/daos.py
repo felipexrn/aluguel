@@ -1,5 +1,5 @@
 from .models import *
-from .business import *
+from datetime import datetime
 
 class ClientDao:    
     def list_all(self):
@@ -46,9 +46,6 @@ class RentDao:
         theme_list = ThemeDao().list_all()
         return {'client_list':client_list, 'theme_list': theme_list}
 
-    def clientRents(self, client_id):
-        return Rent.client_set.filter(id = client_id)
-
     def saveRent(self, date, start_hours, end_hours, client_id, theme_id, price, street, number, complement, district, city, state):
         r = Rent()
         r.date=date
@@ -57,11 +54,11 @@ class RentDao:
         r.price=price
         r.client_id=client_id
         r.theme_id=theme_id
-        r.street = street,
-        r.number = number,
-        r.complement = complement,
-        r.district = district, 
-        r.city = city,
+        r.street = street
+        r.number = number
+        r.complement = complement
+        r.district = district
+        r.city = city
         r.state = state
         r.save()
 
@@ -80,12 +77,25 @@ class RentDao:
         r.price=price
         r.client_id=client_id
         r.theme_id=theme_id
-        r.street = street,
-        r.number = number,
-        r.complement = complement,
-        r.district = district, 
-        r.city = city,
+        r.street = street
+        r.number = number
+        r.complement = complement
+        r.district = district
+        r.city = city
         r.state = state
 
         r.save()
-    
+
+    def calc_desconto(self, date, client_id, theme_id):
+        client_rents = RentDao().clientRents(client_id)
+        price = ThemeDao().getTheme(theme_id).price
+        day = datetime.strptime(date, '%Y-%m-%d').weekday()
+        if client_rents:
+            if day in (1, 2, 3):
+                price = price*0.6
+            elif day in (4, 5):
+                price = price*0.9
+        return price
+
+    def clientRents(self, client_id):
+        return Rent.objects.filter(client = client_id)

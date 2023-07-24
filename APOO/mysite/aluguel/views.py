@@ -3,7 +3,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .daos import *
 from .models import *
-from .business import *
+#from .business import *
+from datetime import datetime
 
 #Página inicial com a lista de clientes
 def index(request):
@@ -194,11 +195,11 @@ class RentViews:
     #Salva o novo aluguel e volta para listagem de alugueis
     def saveRent(request):
         date = request.POST['date']
-        start_hours = request.POST['start_hours']
-        end_hours = request.POST['end_hours']
+        start_hours = datetime.strptime(request.POST['start_hours'], '%H:%M')
+        end_hours = datetime.strptime(request.POST['end_hours'], '%H:%M')
         client_id = request.POST['select_client']
         theme_id = request.POST['select_theme']
-        price = RentBusiness().calc_desconto(date, client_id, theme_id)
+        price = RentDao().calc_desconto(date, client_id, theme_id)
         street = request.POST['street']
         number = request.POST['number']
         complement = request.POST['complement']
@@ -236,11 +237,11 @@ class RentViews:
     #Atualiza um item e volta para listagem
     def updateRent(request, id):
         date = request.POST['date']
-        start_hours = request.POST['start_hours']
-        end_hours = request.POST['end_hours']
+        start_hours = datetime.strptime(request.POST['start_hours'], '%H:%M')
+        end_hours = datetime.strptime(request.POST['end_hours'], '%H:%M')
         client_id = request.POST['select_client']
         theme_id = request.POST['select_theme']
-        price = RentBusiness().calc_desconto(date, client_id, theme_id)
+        price = RentDao().calc_desconto(date, client_id, theme_id)
         street = request.POST['street']
         number = request.POST['number']
         complement = request.POST['complement']

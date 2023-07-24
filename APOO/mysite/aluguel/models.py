@@ -35,8 +35,8 @@ class Item(models.Model):
 
 class Rent(models.Model):
     date = models.DateField(blank=False, null=False)
-    start_hours = models.CharField(max_length=5, blank=False, null=False)
-    end_hours = models.CharField(max_length=5, blank=False, null=False)
+    start_hours = models.TimeField(auto_now=True, blank=False, null=False)
+    end_hours = models.TimeField(auto_now=True, blank=False, null=False)
     price = models.FloatField(default=0.0)
     street = models.CharField(max_length=60, default="")
     number = models.IntegerField(null=True)
