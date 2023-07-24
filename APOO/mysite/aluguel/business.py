@@ -4,7 +4,7 @@ import datetime
 
 class RentBusiness: 
     def calc_desconto(self, date, client_id, theme_id):
-        client_rents = RentDao().client_rents(client_id) 
+        client_rents = RentDao().clientRents(client_id) 
         price = ThemeDao().getTheme(theme_id).price
         day = date.weekday()
         if client_rents:

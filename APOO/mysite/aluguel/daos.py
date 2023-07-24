@@ -46,10 +46,10 @@ class RentDao:
         theme_list = ThemeDao().list_all()
         return {'client_list':client_list, 'theme_list': theme_list}
 
-    def client_rents(self, client_id):
-        return Rent.objects.filter(client = client_id)
+    def clientRents(self, client_id):
+        return Rent.client_set.filter(id = client_id)
 
-    def saveRent(self, date, start_hours, end_hours, price, client_id, theme_id, address):
+    def saveRent(self, date, start_hours, end_hours, client_id, theme_id, price, street, number, complement, district, city, state):
         r = Rent()
         r.date=date
         r.start_hours=date
@@ -57,7 +57,12 @@ class RentDao:
         r.price=price
         r.client_id=client_id
         r.theme_id=theme_id
-        r.address=address
+        r.street = street,
+        r.number = number,
+        r.complement = complement,
+        r.district = district, 
+        r.city = city,
+        r.state = state
         r.save()
 
     def deleteRent(self, id):
@@ -67,7 +72,7 @@ class RentDao:
     def getRent(self, id):
         return Rent.objects.get(pk=id)
 
-    def updateRent(self, id, start_hours, end_hours, price, client_id, theme_id, address):
+    def updateRent(self, id, date, start_hours, end_hours, client_id, theme_id, price, street, number, complement, district, city, state):
         r = Rent.objects.get(pk=id)
         r.date=date
         r.start_hours=date
@@ -75,25 +80,12 @@ class RentDao:
         r.price=price
         r.client_id=client_id
         r.theme_id=theme_id
-        r.address=address
+        r.street = street,
+        r.number = number,
+        r.complement = complement,
+        r.district = district, 
+        r.city = city,
+        r.state = state
+
         r.save()
     
-
-class AddressDao:
-    def newAddress(self, street, number, complement, district, city, state):
-        a = Address(street, number, complement, district, city, state)
-        a.save()
-
-    def getAddress(self, id):
-        return Address.objects.get(pk=id)
-
-    def updateAddress(self, id, street, number, complement, district, city, state):
-        a = getAdrress(id)
-        a.street = street,
-        a.number = number,
-        a.complement = complement,
-        a.district = district, 
-        a.city = city,
-        a.state = state
-        a.save()
-        return a.pk
