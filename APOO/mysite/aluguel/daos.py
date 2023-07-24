@@ -37,6 +37,24 @@ class RentDao:
     def list_all(self):
         return Rent.objects.all()
 
+    def formRent(self):
+        client_list = ClientDao().list_all() #Client.objects.all()
+        theme_list = ThemeDao().list_all() #Theme.objects.all()
+        return {'client_list':client_list, 'theme_list': theme_list}
+
+    def deleteRent(self, id):
+        r = Rent.objects.get(pk=id)
+        r.delete()
+
+    def getRent(self, id):
+        return Rent.objects.get(pk=id)
+
+    def saveRent(date, start_hours, end_hours, price, client_id, theme_id, address):
+        r = Rent(date, start_hours, end_hours, price, client_id, theme_id, address)
+        r.save()
+
+    
+
 class AdressDao:
-    def list_all(self):
-        return Address.objects.all()
+    def new_address(street, number, complement, district, city, state):
+        return Address(street, number, complement, district, city, state)

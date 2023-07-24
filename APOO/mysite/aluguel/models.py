@@ -37,6 +37,7 @@ class Rent(models.Model):
     date = models.DateField(blank=False, null=False)
     start_hours = models.CharField(max_length=5, blank=False, null=False)
     end_hours = models.CharField(max_length=5, blank=False, null=False)
+    price = models.FloatField(default=0.0)
     client = models.ForeignKey('Client', on_delete=CASCADE, related_name='rents')
     theme = models.ForeignKey('Theme', on_delete=CASCADE, related_name='rents')
     address = models.OneToOneField('Address', on_delete=models.CASCADE, null=True)
